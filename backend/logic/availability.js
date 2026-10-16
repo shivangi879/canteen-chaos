@@ -1,16 +1,17 @@
+
 // logic/availability.js
 // When the canteen is open, which meal is being served, and whether a
 // given dish can be ordered at this moment.
 //
 // The server clock decides all of this. The browser's clock is never trusted.
 
-const OPEN_FROM = 7 * 60;   // 07:00
-const OPEN_TO = 22 * 60;    // 22:00
+const OPEN_FROM = 0;   // 07:00
+const OPEN_TO = 24 * 60;    // 22:00
 
 const SLOT_WINDOWS = {
-  breakfast: { from: 7 * 60, to: 11 * 60 },
-  lunch: { from: 11 * 60 + 30, to: 16 * 60 },
-  evening: { from: 16 * 60 + 30, to: 22 * 60 },
+  breakfast: { from: 0, to: 10 * 60 },
+  lunch: { from: 0, to: 16 * 60 },
+  evening: { from: 0, to: 22 * 60 },
   allday: { from: OPEN_FROM, to: OPEN_TO },
 };
 

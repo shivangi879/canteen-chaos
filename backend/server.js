@@ -92,10 +92,10 @@ function stopKitchen() {
 
 if (require.main === module) {
   startKitchen();
-  app.listen(PORT, () => {
+  app.listen(PORT,'0.0.0.0', () => {
     console.log(`Canteen Chaos on http://localhost:${PORT}`);
     console.log(`  latency ${LATENCY_MS}ms  auto-cook ${AUTO_COOK}  tick ${KITCHEN_TICK_MS}ms`);
   });
 }
 
-module.exports = { app, startKitchen, stopKitchen, kitchenTick };
+module.exports = { app, startKitchen, stopKitchen, kitchenTick };;

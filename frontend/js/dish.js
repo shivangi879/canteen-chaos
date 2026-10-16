@@ -101,24 +101,8 @@ function renderDishDetail(dish) {
   );
 }
 
-function detailQtyControl(dish) {
-  const qty = cartQty(dish.id);
 
-  if (!dish.orderable) {
-    return html`<button class="primary-btn" disabled>${dish.blockedReason || 'Not available'}</button>`;
-  }
-
-  if (qty > 0) {
-    return html`<div class="qty-row big">
-      <button class="qty-btn" data-detail="dec" aria-label="One less">&minus;</button>
-      <span class="qty-value">${qty}</span>
-      <button class="qty-btn" data-detail="inc" aria-label="One more">+</button>
-      <button class="ghost-btn" data-detail="view">View cart</button>
-    </div>`;
-  }
-
-  return '<button class="primary-btn" data-detail="add">Add to Cart</button>';
-}
+  
 
 /* ----------------------------------------------------- interactions */
 

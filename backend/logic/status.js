@@ -1,3 +1,4 @@
+
 // logic/status.js
 // The life of an order: what it may become next, how long it should take,
 // and the little kitchen simulation that moves orders along on its own.

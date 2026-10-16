@@ -23,6 +23,7 @@
   --shadow-lg: 0 12px 40px rgba(70, 45, 20, 0.22);
 }
 
+
 html[data-theme="dark"] {
   --orange: #ff7a2f;
   --orange-dark: #e8590c;
@@ -291,7 +292,7 @@ h1, h2, h3 { margin: 0; }
 
 .fav-btn.on { color: var(--amber); }
 
-.dish-body { padding: 12px; display: flex; flex-direction: column; gap: 7px; flex: 1; color: #2b2118; }
+.dish-body { padding: 12px; display: flex; flex-direction: column; gap: 7px; flex: 1; color: var(--ink); }
 
 .dish-name { font-weight: 600; font-size: 15px; overflow-wrap: break-word; }
 

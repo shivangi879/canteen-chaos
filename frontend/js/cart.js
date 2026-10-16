@@ -183,9 +183,17 @@ delegate(cartItemsBox, '[data-cart]', 'click', (e, node) => {
       action: { label: 'Undo', onClick: () => { undoRemove(); refreshQuote(); } },
     });
   } else {
-    const result = addToCart(dish, action === 'inc' ? 1 : -1);
-    if (!result.ok) toast(result.reason, 'warn');
+  if (action === 'inc' && cartQty(dishId) >= Number(dish.stock)) {
+    toast('Item not available: maximum stock reached', 'warn');
+    return;
   }
+
+  const result = addToCart(dish, action === 'inc' ? 1 : -1);
+  if (!result.ok) toast(result.reason, 'warn');
+}
+
+
+  
 
   refreshQuote();
 });

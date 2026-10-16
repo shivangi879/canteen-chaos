@@ -1,0 +1,1 @@
+Get-Content .\backend\logic\availability.js

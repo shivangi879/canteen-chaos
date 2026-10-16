@@ -33,6 +33,12 @@ function validateLine(item, index, menu, now, seen) {
   if (qty > MAX_QTY_PER_DISH) {
     errors.push(`${where}: you cannot order more than ${MAX_QTY_PER_DISH} of one dish`);
   }
+  
+  if (Number(dish.stock) <= 0) errors.push(`${dish.name} is sold out`);
+  if (qty > Number(dish.stock)) {
+  errors.push(`${dish.name}: only ${dish.stock} items are available`);
+  }
+
 
   const blocked = blockedReason(dish, now);
   if (blocked && isServedNow(dish, now) === false) errors.push(`${dish.name}: ${blocked}`);
@@ -120,7 +126,7 @@ function releaseStock(items, menu) {
   return menu.map((dish) => {
     const line = items.find((i) => Number(i.dishId) === dish.id);
     if (!line) return dish;
-    return { ...dish, stock: dish.stock - line.qty };
+    return { ...dish, stock: dish.stock + line.qty };
   });
 }
 

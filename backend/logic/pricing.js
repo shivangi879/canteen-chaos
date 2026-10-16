@@ -105,9 +105,15 @@ function applyCoupon(code, lines, coupons, { slot = null, now = new Date() } = {
   if (slot && Array.isArray(coupon.slots) && !coupon.slots.includes(slot)) {
     return { valid: false, discount: 0, reason: `${coupon.code} is not valid right now` };
   }
+  
+  if (coupon.expiresAt && new Date(now) > new Date(coupon.expiresAt)) {
+  return { valid: false, discount: 0, reason: 'Coupon has expired' };
+  }
+ 
 
   let discount = coupon.type === 'percent' ? (subtotal * coupon.value) / 100 : coupon.value;
   discount = Math.min(discount, coupon.maxDiscount, subtotal);
+  coupons.userleft-=1;
 
   return { valid: true, discount: round2(discount), reason: null, coupon };
 }
