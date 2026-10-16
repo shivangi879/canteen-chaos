@@ -1,13 +1,5 @@
 # Debug log
 
-Your notes. One entry per bug you fixed, using the template below.
-
-This file is read as carefully as your code. A correct fix you cannot
-explain counts for little; a bug you could not fix but investigated
-honestly still counts for something.
-
-
-
 ## CC-02 — "<Can't read anything in dark mode>"
 
 **Reproduced:** while switching in dark mode the dish name and text becomes unreadable.
@@ -18,33 +10,11 @@ honestly still counts for something.
 
 **Checked:** fixed
 
-**Time:**
-
-
-### CC-08 — "<An old coupon still works>"
-
-**What I tried:** **reproduce** for an old coupon applied i applied freshers24 and it still got applied giving discount
-
-**cause** for an old coupon in the apply coupon dates are not compared. if todays date is more than expiry date then coupon should not be applied . so condition is checked if nowdate()>expiry date expired coupon should be printed in the applycopoun function 
-function applyCoupon(code, lines, coupons, { slot = null, now = new Date() } = {}) {
-  if (!code) return { valid: false, discount: 0, reason: null };
-in this function expiry date and current date are not compared.
-
-**fixed** if (coupon.expiresAt && new Date(now) > new Date(coupon.expiresAt)) {
-  return { valid: false, discount: 0, reason: 'Coupon has expired' };
-  }  in pricing attribute where only discount is changed to 0 if condition is satisfied.Condition checked and discount made=0.
-
-  **fixed** yes fixed the bug
-
-**Where I got to:** in logic pricing i had checked the condition and if condition is checked the coupon has expired is printed. freshers24 was the coupon with expiry date last year still usable means condition for checking nowdate() and expiry date is not done.
-fixed the bug
-
-
-## CC-02 — "<I ordered more than they had>"
+### CC-06 — "<I ordered more than they had>"
 
 **Reproduced:** if in stock only 3 samosas are left but we ordered added the items qunatity as 5 and even if quantity is greater then stock still we are able to order it.
 
-**Cause:** in our cart.js condition was not checked if in our added cart quantity is greater than stock. if quantity is greater then stock and button pressed is increment then warning is displayed by toast("warn") that order is invalid and return is passed next so that next operations are not performed.
+**Cause:** in our cart.js (in add to cart option) condition was not checked if in our added cart quantity is greater than stock. if quantity is greater then stock there is warning displayed that quantity is greater than stock and button pressed is increment then warning is displayed by toast("warn") that order is invalid and return is passed next so that next operations are not performed.
 
 **Fix:** delegate(cartItemsBox, '[data-cart]', 'click', (e, node) in this function it deals with interactions of buttons increment decrement  if (action === 'remove') {actions like decrement and increment so in increment else statement putted condition  then warning is displayed as toast.
  if (action === 'inc' && cartQty(dishId) >= Number(dish.stock)) {
@@ -56,21 +26,13 @@ fixed the bug
 
 **Checked:** fixed
 
-**fixed** in our cart we cannot order more than the stock and message is displayed inside the cart and also order is also not booked no next functions are performend if quantity>=stock condition is met.
+**fixed** i had fixed in add to cart cart.js  order is not placed whe quantity> stock and increment button disabled when  condition reached.
+
+in our cart we cannot order more than the stock and message is displayed inside the cart and also order is also not booked no next functions are performend if quantity>=stock condition is met.
 "+ button should also be disabled when quantity is reached upto stock but unable to disable + button" made chances such as maxreached =stock and when quantity reaches maxreaches condition becomes false and we disable the button it is core logic behind disabling the button. 
 
-**Time:**
 
-
-
-## Could not fix
-
-For anything you investigated but did not solve. Say what you tried and
-where you got to. This is worth marks — leaving it blank when you got
-stuck is not.
-
-
-### CC-07: "Cancelling makes it worse"
+#### CC-07: "Cancelling makes it worse"
 
 **What I tried:** **reproduce** if i ordered samosa and cancelled so the quantity should be added in stock as order has not been place. 6 stocks of samosas left 2 ordered and order cancelled but the stock shows 4 samosa even if i had cancelled 2 samosas.
 when ordered any item and cancelled so stock should be refilled by the quantity that we had ordered as we had cancelled our order so stock items should not be affected as order is not placed,
@@ -112,6 +74,46 @@ stock=stock+quantity logic required for refilling stock
   **fixed** yes fixed the bug
 
 
+## CC-08 — "<An old coupon still works>"
+
+**What I tried:** **reproduce** for an old coupon applied i applied freshers24 and it still got applied giving discount
+
+**cause** for an old coupon in the apply coupon dates are not compared. if todays date is more than expiry date then coupon should not be applied . so condition is checked if nowdate()>expiry date expired coupon should be printed in the applycopoun function 
+function applyCoupon(code, lines, coupons, { slot = null, now = new Date() } = {}) {
+  if (!code) return { valid: false, discount: 0, reason: null };
+in this function expiry date and current date are not compared.
+
+**fixed** if (coupon.expiresAt && new Date(now) > new Date(coupon.expiresAt)) {
+  return { valid: false, discount: 0, reason: 'Coupon has expired' };
+  }  in pricing attribute where only discount is changed to 0 if condition is satisfied.Condition checked and discount made=0.
+
+  **fixed** yes fixed the bug
+
+**Where I got to:** in logic pricing i had checked the condition and if condition is checked the coupon has expired is printed. freshers24 was the coupon with expiry date last year still usable means condition for checking nowdate() and expiry date is not done.
+fixed the bug
+
+
+CC-10: "Sorting by price is backwards"
+**Reproduced:** while in searching high to low from price in search menu it is showing low price item at top 
+
+**Cause:** in backend logic search.js we are searching items for example if high to low so in function 
+const SORTERS = {
+  'price-asc': (a, b) => b.price - a.price,
+  'price-desc': (a, b) => a.price - b.price,
+}
+this a.price-b.price in ascending is wrong  
+
+**Fix:** fixed the function and assingned a,and b properly for proper ascending and descending order.
+ const SORTERS = {
+  'price-asc': (a, b) => b.price - a.price,
+  'price-desc': (a, b) => a.price - b.price,
+  'rating-desc': (a, b) => b.rating - a.rating,
+  'name-asc': (a, b) => a.name.localeCompare(b.name),
+  'prep-asc': (a, b) => a.prepMinutes - b.prepMinutes,
+  popular: (a, b) => (b.orderCount || 0) - (a.orderCount || 0),
+  default: (a, b) => Number(b.orderable) - Number(a.orderable)
+}
+
 
 ### CC-miscellaneous — "when the coupon is appied still the value of coupon user does not decrease and 501 users left is constant"
 
@@ -123,13 +125,3 @@ stock=stock+quantity logic required for refilling stock
 **Fix:** coupons.userleft-=1; in the apply coupon() function inside pricing in logic backend where after coupon is applied befor last condition this condition is fullfilled and after applying coupon our couponusersleft are reduced by 1.
 
 **Checked:** fixed
-
-**Time:** about 40 minutes, most of it working out that the cart and the
-order screen round in different places.
-
-
-## Extra credit
-
-Anything not on the bug log: a problem you found yourself, a test you
-wrote, or a fix you are unsure about. Same format, plus one line on how
-you noticed it.
