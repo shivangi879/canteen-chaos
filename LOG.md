@@ -10,7 +10,7 @@
 
 **Checked:** fixed
 
-### CC-06 — "<I ordered more than they had>"
+## CC-06 — "<I ordered more than they had>"
 
 **Reproduced:** if in stock only 3 samosas are left but we ordered added the items qunatity as 5 and even if quantity is greater then stock still we are able to order it.
 
@@ -32,7 +32,7 @@ in our cart we cannot order more than the stock and message is displayed inside 
 "+ button should also be disabled when quantity is reached upto stock but unable to disable + button" made chances such as maxreached =stock and when quantity reaches maxreaches condition becomes false and we disable the button it is core logic behind disabling the button. 
 
 
-#### CC-07: "Cancelling makes it worse"
+## CC-07: "Cancelling makes it worse"
 
 **What I tried:** **reproduce** if i ordered samosa and cancelled so the quantity should be added in stock as order has not been place. 6 stocks of samosas left 2 ordered and order cancelled but the stock shows 4 samosa even if i had cancelled 2 samosas.
 when ordered any item and cancelled so stock should be refilled by the quantity that we had ordered as we had cancelled our order so stock items should not be affected as order is not placed,
@@ -92,8 +92,7 @@ in this function expiry date and current date are not compared.
 **Where I got to:** in logic pricing i had checked the condition and if condition is checked the coupon has expired is printed. freshers24 was the coupon with expiry date last year still usable means condition for checking nowdate() and expiry date is not done.
 fixed the bug
 
-
-CC-10: "Sorting by price is backwards"
+## CC-10 — "<Sorting by price is backwards>"
 **Reproduced:** while in searching high to low from price in search menu it is showing low price item at top 
 
 **Cause:** in backend logic search.js we are searching items for example if high to low so in function 
@@ -115,7 +114,7 @@ this a.price-b.price in ascending is wrong
 }
 
 
-### CC-miscellaneous — "when the coupon is appied still the value of coupon user does not decrease and 501 users left is constant"
+## CC-miscellaneous — "when the coupon is appied still the value of coupon user does not decrease and 501 users left is constant"
 
 **Reproduced:** if coupon byte10 is applied so after applying the value should be decreased and usersleft count should be reduced but constant count is maintained.
 
